@@ -206,6 +206,7 @@ del_tree = args.del_tree
 gen_idl = args.gen_idl
 mkdir_build = args.mkdir_build
 package = args.package
+fastrtpsgen = args.fastrtpsgen+"/bin"
 
 # Msg files path
 msg_dir = os.path.abspath(args.msgdir)
@@ -231,7 +232,7 @@ if args.fastrtpsgen is None or args.fastrtpsgen == '':
 else:
     # Path to fastrtpsgen is explicitly specified
     fastrtpsgen_path = os.path.join(
-        os.path.abspath(args.fastrtpsgen), 'fastrtpsgen')
+        os.path.abspath(fastrtpsgen), 'fastrtpsgen')
 fastrtpsgen_include = args.fastrtpsgen_include
 if fastrtpsgen_include is not None and fastrtpsgen_include != '':
     fastrtpsgen_include = "-I " + \
@@ -257,8 +258,8 @@ if(os.path.exists(fastrtpsgen_path)):
         print("'fastrtpsgen -version' returned None. Hardsetting version to 1.0")
         fastrtpsgen_version = 1.0
 else:
-    raise Exception(
-        "FastRTPSGen not found. Specify the location of fastrtpsgen with the -f flag")
+    raise Exception(fastrtpsgen_path.__str__())
+    #    "FastRTPSGen not found. Specify the location of fastrtpsgen with the -f flag")
 
 # get ROS 2 version, if exists
 ros2_distro = ""
